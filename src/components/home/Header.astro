@@ -1,0 +1,37 @@
+---
+interface Props {
+  coverImage: string;
+  avatarImage: string;
+  name: string;
+  bio: string;
+}
+
+const { coverImage, avatarImage, name, bio } = Astro.props;
+---
+
+<div class="h-48 md:h-64 w-full relative overflow-hidden">
+  <img 
+    src={coverImage} 
+    alt="Cover" 
+    class="w-full h-full object-cover" 
+    loading="eager" 
+    width="1200" 
+    height="400"
+  />
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent to-purple-50/90"></div>
+</div>
+<div class="text-center space-y-6 -mt-24 relative z-10">
+  <div class="relative w-48 h-48 mx-auto mb-8">
+    <img 
+      src={avatarImage} 
+      alt={name}
+      class="rounded-full object-cover w-full h-full shadow-xl ring-4 ring-white hover:scale-105 transition-transform duration-300"
+    />
+  </div>
+  <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#F25D49] to-[#FF8F75] animate-fade-in">
+    {name}
+  </h1>
+  <p class="text-lg text-gray-600 max-w-lg mx-auto leading-relaxed animate-slide-up">
+    {bio}
+  </p>
+</div>

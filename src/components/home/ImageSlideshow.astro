@@ -1,0 +1,93 @@
+---
+const images = [
+  {
+    url: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?w=1200&h=600&fit=crop",
+    alt: "Philosophical reading"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=1200&h=600&fit=crop",
+    alt: "Contemplative moment"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?w=1200&h=600&fit=crop",
+    alt: "Creative workspace"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1492539161849-b2b18e79c85f?w=1200&h=600&fit=crop",
+    alt: "Nature and philosophy"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=1200&h=600&fit=crop",
+    alt: "Writing journey"
+  },
+  {
+    url: "https://images.unsplash.com/photo-1516414447565-b14be0adf13e?w=1200&h=600&fit=crop",
+    alt: "Photography passion"
+  }
+];
+---
+
+<div class="space-y-6">
+  <div class="relative h-64 md:h-80 w-full overflow-hidden rounded-xl">
+    {images.map((image, index) => (
+      <img
+        src={image.url}
+        alt={image.alt}
+        class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === 5 ? 'opacity-100' : 'opacity-0'}`}
+      />
+    ))}
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      {images.map((_, index) => (
+        <button
+          class={`w-2 h-2 rounded-full transition-colors ${
+            index === 5 ? 'bg-white' : 'bg-white/50'
+          }`}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+let currentSlide = 5;
+const totalSlides = 6;
+
+function updateSlides() {
+  const images = document.querySelectorAll('.relative.h-64 img');
+  const dots = document.querySelectorAll('.relative.h-64 button');
+  
+  images.forEach((img, index) => {
+    if (index === currentSlide) {
+      img.classList.remove('opacity-0');
+      img.classList.add('opacity-100');
+    } else {
+      img.classList.remove('opacity-100');
+      img.classList.add('opacity-0');
+    }
+  });
+  
+  dots.forEach((dot, index) => {
+    if (index === currentSlide) {
+      dot.classList.remove('bg-white/50');
+      dot.classList.add('bg-white');
+    } else {
+      dot.classList.remove('bg-white');
+      dot.classList.add('bg-white/50');
+    }
+  });
+  
+  currentSlide = (currentSlide + 1) % totalSlides;
+}
+
+// Initialize slideshow
+setInterval(updateSlides, 5000);
+
+// Add click handlers for dots
+document.querySelectorAll('.relative.h-64 button').forEach((button, index) => {
+  button.addEventListener('click', () => {
+    currentSlide = index;
+    updateSlides();
+  });
+});
+</script>

@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  return [
+    {
+      params: { category: 'tech', slug: 'welcome-to-tech' },
+      props: {
+        title: 'Welcome to Tech',
+        content: 'This is a sample tech article...',
+        date: '2023-08-20'
+      }
+    },
+    {
+      params: { category: 'lifestyle', slug: 'balanced-life' },
+      props: {
+        title: 'Living a Balanced Life',
+        content: 'Tips for maintaining work-life balance...',
+        date: '2023-08-19'
+      }
+    },
+    {
+      params: { category: 'travel', slug: 'adventure-begins' },
+      props: {
+        title: 'The Adventure Begins',
+        content: 'My first travel experience...',
+        date: '2023-08-18'
+      }
+    }
+  ];
+}
+
+const { title, content, date } = Astro.props;
+const { category } = Astro.params;
+---
+
+<Layout title={title}>
+  <article class="max-w-2xl mx-auto p-6 animate-fade-in">
+    <a href="/" class="text-blue-600 hover:underline mb-4 inline-block">← Back to Home</a>
+    <div class="bg-white rounded-lg shadow-md p-8">
+      <span class="text-sm text-blue-600 uppercase">{category}</span>
+      <h1 class="text-4xl font-bold text-gray-800 mt-2">{title}</h1>
+      <time class="text-gray-500 block mt-2">{date}</time>
+      <div class="prose mt-6">
+        {content}
+      </div>
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,43 @@
+---
+    import { getCollection } from 'astro:content';
+    import Layout from '../../layouts/Layout.astro';
+    import { slugify, formatBlogTitle } from '../../utils/blog';
+    import Header from '../../components/Header.astro';
+    import Footer from '../../components/Footer.astro';
+    import BlogNavigation from '../../components/BlogNavigation.astro';
+
+    const postsPerPage = 9;
+    const allPosts = await getCollection('blog');
+    const totalPosts = allPosts.length;
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+    const currentPage = Number(Astro.url.searchParams.get('page') || 1);
+    const startIndex = (currentPage - 1) * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+    const posts = allPosts.slice(startIndex, endIndex);
+    ---
+
+    <Layout title="Blog">
+      <Header title="Blog" />
+      <main class="max-w-4xl mx-auto mt-8 p-4 bg-gradient-to-b from-purple-50 to-pink-50">
+        <h1 class="text-4xl font-bold mb-6">Blog Posts</h1>
+        <ul class="space-y-4">
+          {posts.map((post) => (
+            <li class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-300">
+              <a href={`/${post.data.category}/${slugify(post.data.title)}`} class="block">
+                <h2 class="text-2xl font-semibold text-gray-800 hover:text-[#F25D49] transition-colors duration-300">
+                  {formatBlogTitle(post.data.title)}
+                </h2>
+                <p class="text-gray-600 mt-2">{post.data.description}</p>
+                <div class="flex items-center justify-between mt-4">
+                  <span class="text-sm text-gray-500">Published: {post.data.pubDate.toLocaleDateString()}</span>
+                  <span class="text-sm text-[#F25D49] uppercase">{post.data.category}</span>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <BlogNavigation currentPage={currentPage} totalPages={totalPages} />
+      </main>
+      <Footer />
+    </Layout>

@@ -1,0 +1,103 @@
+---
+import SocialLinks from './SocialLinks.astro';
+import ImageCarousel from './ImageCarousel.astro';
+import AboutMe from './AboutMe.astro';
+import Footer from './Footer.astro';
+
+const links = [
+  {
+    title: "Philosophy Blog",
+    icon: "📚",
+    url: "/blog/philosophy",
+    description: "Thoughts on life, existence, and everything in between"
+  },
+  {
+    title: "Photography Portfolio",
+    icon: "📸",
+    url: "/blog/photography",
+    description: "Capturing moments through my lens"
+  },
+  {
+    title: "Web Development",
+    icon: "💻",
+    url: "/blog/development",
+    description: "My journey in web development"
+  },
+  {
+    title: "Book Publishing Services",
+    icon: "📖",
+    url: "/blog/publishing",
+    description: "Help with publishing your next book"
+  }
+];
+---
+
+<div class="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+  <div class="relative">
+    <!-- Background Image -->
+    <div class="absolute inset-0 h-[300px] w-full">
+      <img 
+        src="/mountains.jpg" 
+        alt="Mountain landscape" 
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="relative">
+      <!-- Profile Section -->
+      <div class="max-w-2xl mx-auto px-6 pt-[220px] pb-12 space-y-8">
+        <div class="text-center space-y-4">
+          <div class="w-32 h-32 mx-auto relative">
+            <img
+              src="/profile.jpg"
+              alt="Profile"
+              class="w-full h-full rounded-full border-4 border-white shadow-lg object-cover"
+            />
+          </div>
+          <div class="space-y-2">
+            <h1 class="text-3xl font-bold text-gray-800">Your Name</h1>
+            <p class="text-gray-600 max-w-md mx-auto">
+              Blogger, photographer, and book publicist with a passion for philosophical comedy. 
+              Aspiring web developer on a journey to become a full-time internet influencer.
+            </p>
+          </div>
+        </div>
+
+        <!-- Links Section -->
+        <div class="space-y-3">
+          {links.map((link) => (
+            <a href={link.url} class="bio-link group">
+              <span class="text-2xl">{link.icon}</span>
+              <div class="flex-1">
+                <h2 class="font-medium text-gray-900">{link.title}</h2>
+                <p class="text-sm text-gray-500">{link.description}</p>
+              </div>
+              <span class="text-gray-400 group-hover:text-coral">→</span>
+            </a>
+          ))}
+        </div>
+
+        <!-- Newsletter -->
+        <div class="pt-4">
+          <button class="newsletter-btn">
+            Sign up for newsletter
+          </button>
+        </div>
+
+        <!-- Social Links -->
+        <SocialLinks />
+
+        <!-- Image Carousel -->
+        <ImageCarousel />
+
+        <!-- About Section -->
+        <AboutMe />
+      </div>
+
+      <!-- Footer -->
+      <Footer />
+    </div>
+  </div>
+</div>

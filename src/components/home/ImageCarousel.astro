@@ -1,0 +1,27 @@
+---
+const images = [
+  {
+    src: "/notebook.jpg",
+    alt: "Write Ideas Notebook"
+  }
+  // Add more images as needed
+];
+---
+
+<div class="mt-12 relative">
+  <div class="aspect-[16/9] rounded-xl overflow-hidden">
+    <img 
+      src={images[0].src} 
+      alt={images[0].alt}
+      class="w-full h-full object-cover"
+    />
+  </div>
+  <div class="flex justify-center gap-2 mt-4">
+    {Array(6).fill(null).map((_, i) => (
+      <button 
+        class={`w-2 h-2 rounded-full transition-colors ${i === 0 ? 'bg-coral' : 'bg-gray-300'}`}
+        aria-label={`Go to slide ${i + 1}`}
+      />
+    ))}
+  </div>
+</div>

@@ -1,0 +1,37 @@
+---
+    interface Props {
+      currentPage: number;
+      totalPages: number;
+    }
+    const { currentPage, totalPages } = Astro.props;
+    ---
+    <nav class="mt-8 flex justify-center">
+      <ul class="flex items-center space-x-2">
+        <li>
+          {currentPage > 1 && (
+            <a href={`/blog?page=${currentPage - 1}`} class="px-3 py-2 rounded-md bg-gray-200 hover:bg-gray-300">
+              Previous
+            </a>
+          )}
+        </li>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+          <li>
+            <a
+              href={`/blog?page=${page}`}
+              class={`px-3 py-2 rounded-md ${
+                page === currentPage ? 'bg-gradient-to-r from-[#F25D49] to-[#FF8F75] text-white' : 'bg-gray-200 hover:bg-gray-300'
+              }`}
+            >
+              {page}
+            </a>
+          </li>
+        ))}
+        <li>
+          {currentPage < totalPages && (
+            <a href={`/blog?page=${currentPage + 1}`} class="px-3 py-2 rounded-md bg-gray-200 hover:bg-gray-300">
+              Next
+            </a>
+          )}
+        </li>
+      </ul>
+    </nav>
