@@ -1,0 +1,1 @@
+# araix-rand-blog
